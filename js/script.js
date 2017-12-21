@@ -1,18 +1,27 @@
-
-function setup() {
-  // put setup code here
-  createCanvas(600, 600);
-  background(255);
-
-  for (let x=0; x<=width; x+=15){
-    for ( let y=0; y<=height; y+=15){
-
-      fill(x-100, 255, y-100);
-      ellipse(x, y, 10, 10);
-    }
-  }
+let ball = {
+  x: 300,
+  y: 200,
+  xSpd: 4,
+  ySpd: -3
 }
 
+
+function setup() {
+  createCanvas(600, 400);
+
+}
 function draw() {
-  // put drawing code here
+  background(0);
+  stroke(255);
+  strokeWeight(4);
+  noFill();
+  ellipse(ball.x, ball.y, 24, 24);
+  if (ball.x > width || ball.x <0) {
+    ball.xSpd = -ball.xSpd;
+  }
+  if (ball.y > height || ball.y <0) {
+    ball.ySpd = -ball.ySpd;
+  }
+  ball.x += ball.xSpd;
+  ball.y += ball.ySpd;
 }
