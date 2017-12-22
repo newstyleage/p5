@@ -16,9 +16,9 @@ function mousePressed() {
 }
 function draw() {
   background(0);
-  for (i = 0; i < bubbles.length; i++) {
-    bubbles[i].show();
-    bubbles[i].move();
+  for (elt of bubbles) {
+    elt.show();
+    elt.move();
   }
 }
 
