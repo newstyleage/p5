@@ -2,18 +2,26 @@ let bubbles = [];
 
 function setup() {
   createCanvas(600, 400);
-  // for(i=0;i<10;i++){
-  //   let x= random(width);
-  //   let y = random(height);
-  //   let r = random(20, 40);
-  //   bubbles[i] = new Bubble(x, y, r);
-  // }
+  for(i=0;i<5;i++){
+    let x= random(width);
+    let y = random(height);
+    let r = random(20, 40);
+    let b = new Bubble(x, y, r)
+    bubbles.push(b);
+  }
 }
+
 function mousePressed() {
-  let r = random(10, 30);
-  let b = new Bubble(mouseX, mouseY, r)
-  bubbles.push(b);
+  for (elt of bubbles) {
+    elt.clicked(mouseX, mouseY);
+  }
 }
+
+// function mousePressed() {
+//   let r = random(10, 30);
+//   let b = new Bubble(mouseX, mouseY, r)
+//   bubbles.push(b);
+// }
 function draw() {
   background(0);
   for (elt of bubbles) {
@@ -27,12 +35,13 @@ class Bubble {
     this.x = x;
     this.y = y;
     this.r = r;
+    this.bri = 0;
   }
 
   show() {
     stroke(255);
     strokeWeight(4);
-    noFill();
+    fill(this.bri, 100);
     ellipse(this.x, this.y, this.r * 2);
   }
 
@@ -44,5 +53,12 @@ class Bubble {
 
     this.x += random(-5, 5);
     this.y += random(-5, 5);
+  }
+
+  clicked(x, y){
+    let d = dist(x, y, this.x, this.y)
+    if(d < this.r) {
+      this.bri = 255;
+    }
   }
 }
