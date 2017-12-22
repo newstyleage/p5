@@ -2,7 +2,7 @@ let bubbles = [];
 
 function setup() {
   createCanvas(600, 400);
-  for(i=0;i<5;i++){
+  for(i=0;i<10;i++){
     let x= random(width);
     let y = random(height);
     let r = random(20, 40);
@@ -12,8 +12,10 @@ function setup() {
 }
 
 function mousePressed() {
-  for (elt of bubbles) {
-    elt.clicked(mouseX, mouseY);
+  for (let i = bubbles.length-1; i>= 0; i--) {
+      if(bubbles[i].contains(mouseX, mouseY)){
+        bubbles.splice(i, 1);
+      }
   }
 }
 
@@ -25,9 +27,15 @@ function mousePressed() {
 function draw() {
   background(0);
   for (elt of bubbles) {
+   if (elt.contains(mouseX, mouseY)){
+   elt.changerBrightness(255)
+  } else {
+    elt.changerBrightness(0)
+
+ }
     elt.show();
     elt.move();
-    elt.mouseOver(mouseX, mouseY);
+
   }
 }
 
@@ -63,13 +71,16 @@ class Bubble {
       this.bri = 255;
     }
   }
-  mouseOver(x, y){
-    let d = dist(x, y, this.x, this.y)
-    if (d < this.r) {
-      this.stroke = 100;
-    } else {
-      this.stroke = 255;
-
-    }
+  changerBrightness(bri) {
+    this.bri = bri;
   }
-}
+    contains(x, y){
+      let d = dist(x, y, this.x, this.y)
+        if (d < this.r) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      
+    }
