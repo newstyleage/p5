@@ -2,14 +2,18 @@ let bubbles = [];
 
 function setup() {
   createCanvas(600, 400);
-  for(i=0;i<10;i++){
-    let x= random(width);
-    let y = random(height);
-    let r = random(20, 40);
-    bubbles[i] = new Bubble(x, y, r);
-  }
+  // for(i=0;i<10;i++){
+  //   let x= random(width);
+  //   let y = random(height);
+  //   let r = random(20, 40);
+  //   bubbles[i] = new Bubble(x, y, r);
+  // }
 }
-
+function mousePressed() {
+  let r = random(10, 30);
+  let b = new Bubble(mouseX, mouseY, r)
+  bubbles.push(b);
+}
 function draw() {
   background(0);
   for (i = 0; i < bubbles.length; i++) {
