@@ -27,6 +27,7 @@ function draw() {
   for (elt of bubbles) {
     elt.show();
     elt.move();
+    elt.mouseOver(mouseX, mouseY);
   }
 }
 
@@ -36,10 +37,11 @@ class Bubble {
     this.y = y;
     this.r = r;
     this.bri = 0;
+    this.stroke = 255;
   }
 
   show() {
-    stroke(255);
+    stroke(this.stroke);
     strokeWeight(4);
     fill(this.bri, 100);
     ellipse(this.x, this.y, this.r * 2);
@@ -59,6 +61,15 @@ class Bubble {
     let d = dist(x, y, this.x, this.y)
     if(d < this.r) {
       this.bri = 255;
+    }
+  }
+  mouseOver(x, y){
+    let d = dist(x, y, this.x, this.y)
+    if (d < this.r) {
+      this.stroke = 100;
+    } else {
+      this.stroke = 255;
+
     }
   }
 }
