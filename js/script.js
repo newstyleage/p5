@@ -1,16 +1,15 @@
-let bubble1,
-  bubble2;
+let bubbles = [];
 
 function setup() {
   createCanvas(600, 400);
-  for (i = 0; i < 10; i++) {
-    // let x= random(width);
-    // let y = random(height);
-    // let r = random(20, 40);
-    // let b = new Bubble(x, y, r)
-    // bubbles.push(b);
-    bubble1 = new Bubble(200, 200);
-    bubble2 = new Bubble(400, 200, 80);
+  for (i = 0; i < 20; i++) {
+    let x = random(width);
+    let y = random(height);
+    let r = random(10, 30);
+    let b = new Bubble(x, y, r)
+    bubbles.push(b);
+    // bubble1 = new Bubble(200, 200);
+    // bubble2 = new Bubble(400, 200, 80);
   }
 }
 
@@ -29,15 +28,30 @@ function setup() {
 // }
 function draw() {
   background(0);
-      if (bubble1.intersects(bubble2)) {
-        background(200, 0, 100);
+
+  for (let b of bubbles) {
+    b.show();
+    b.move();
+    let overlapping = false;
+    for (let other of bubbles) {
+      if (b !== other && b.intersects(other)) {
+        overlapping = true;}
+       if (overlapping) {
+        b.changerBrightness(255);
+      } else {
+        b.changerBrightness(0);
       }
-  bubble1.show();
-  bubble1.move();
-  bubble2.show();
-  // bubble2.move();
-  bubble2.x = mouseX;
-  bubble2.y = mouseY;
+    }
+  }
+  // if (bubble1.intersects(bubble2)) {
+  //   background(200, 0, 100);
+  //     // }
+  // bubble1.show();
+  // bubble1.move();
+  // bubble2.show();
+  // // bubble2.move();
+  // bubble2.x = mouseX;
+  // bubble2.y = mouseY;
 
 }
 
@@ -76,16 +90,16 @@ class Bubble {
   //     this.bri = 255;
   //   }
   // }
-  // changerBrightness(bri) {
-  //   this.bri = bri;
+  changerBrightness(bri) {
+    this.bri = bri;
+  }
+  // contains(x, y) {
+  //   let d = dist(x, y, this.x, this.y)
+  //   if (d < this.r) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
   // }
-  //   contains(x, y){
-  //     let d = dist(x, y, this.x, this.y)
-  //       if (d < this.r) {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     }
 
 }
