@@ -12,7 +12,7 @@ function Particle(x, y) {
 
     let v = createVector(this.x, this.y);
     this.history.push(v);
-    if (this.history.length > 50) {
+    if (this.history.length > 70) {
       this.history.splice(0, 1);
     }
 
@@ -22,11 +22,14 @@ function Particle(x, y) {
     stroke(0);
     fill(0, 150);
     ellipse(this.x, this.y, 24, 24);
-
+    noFill();
+    beginShape();
     for (let i = 0; i < this.history.length; i++) {
       let pos = this.history[i];
-      ellipse(pos.x, pos.y, i/5, i/5);
+      // ellipse(pos.x, pos.y, i/5, i/5);
+      vertex(pos.x, pos.y);
     }
+    endShape();
   }
 }
 
