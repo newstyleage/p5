@@ -1,43 +1,37 @@
-var bg, btn, slider, input, nameP;
+const gravity = 0.1;
 
+function Particle(x, y) {
+  this.x = x;
+  this.y = y;
+
+  this.ySpeed = 0;
+
+  this.update = function() {
+    this.y += this.ySpeed;
+    this.ySpeed += gravity;
+
+    if (this.y > height) {
+      this.y = height;
+      this.ySpeed *= -0.9;
+    }
+  }
+
+  this.show = function() {
+    stroke(0);
+    fill(0, 150);
+    ellipse(this.x, this.y, 24, 24);
+  }
+}
+
+let particle;
 
 function setup() {
-  canvas = createCanvas(200, 200);
-  bg = color(200);
-  nameP = createP("Your name");
-  nameP.mouseOver(overPara);
-  nameP.mouseOut(outPara);
-  btn = createButton("go!");
-  btn.mousePressed(changeColor);
-
-  slider = createSlider(10, 100, 47);
-  input = createInput('type your name');
-  //input.changed(updateText); //after enter or tab
-  input.input(updateText); //live
+  createCanvas(400, 300);
+  particle = new Particle(100, 100);
 
 }
-
-function changeColor(){
-  bg = color(random(255));
-}
-
-function overPara(){
-  nameP.html('your mouse is over me')
-}
-
-function outPara(){
-
-  nameP.html('your mouse is OUT')
-}
-
-function updateText(){
-  nameP.html(input.value());
-}
-
 function draw() {
-  background(bg);
-  fill(255, 0, 100);
-  ellipse(100, 100, slider.value(), slider.value());
-  //nameP.html(input.value());
-  text(input.value(), 10, 20);
+  background(200);
+  particle.update();
+  particle.show();
 }
