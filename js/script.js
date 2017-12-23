@@ -5,10 +5,13 @@ function Particle(x, y) {
   this.history = [];
 
   this.update = function() {
-    print(this.x);
-    print(this.y);
     this.x += random(-10, 10);
     this.y += random(-10, 10);
+
+    for (let i = 0; i < this.history.length; i++) {
+      this.history[i].x += random(-2, 2);
+      this.history[i].y += random(-2, 2);
+    }
 
     let v = createVector(this.x, this.y);
     this.history.push(v);
@@ -36,7 +39,7 @@ function Particle(x, y) {
 let particles = [];
 
 function setup() {
-  createCanvas(400, 300);
+  createCanvas(800 , 600);
   }
 
 function mousePressed() {
