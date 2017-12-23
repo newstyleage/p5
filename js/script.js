@@ -7,11 +7,14 @@ function Particle(x, y) {
   this.update = function() {
     print(this.x);
     print(this.y);
-    this.x += random(-5, 5);
-    this.y += random(-5, 5);
+    this.x += random(-10, 10);
+    this.y += random(-10, 10);
 
     let v = createVector(this.x, this.y);
     this.history.push(v);
+    if (this.history.length > 50) {
+      this.history.splice(0, 1);
+    }
 
   }
 
@@ -22,21 +25,25 @@ function Particle(x, y) {
 
     for (let i = 0; i < this.history.length; i++) {
       let pos = this.history[i];
-      ellipse(pos.x, pos.y, 4, 4);
+      ellipse(pos.x, pos.y, i/5, i/5);
     }
   }
 }
 
-let particle;
+let particles = [];
 
 function setup() {
   createCanvas(400, 300);
-  particle = new Particle(200, 200);
+  }
 
+function mousePressed() {
+  particles.push(new Particle(mouseX, mouseY));
 }
+
 function draw() {
   background(200);
-  particle.update();
-  particle.show();
-
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].show();
+  }
 }
