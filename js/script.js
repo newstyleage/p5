@@ -12,7 +12,9 @@ function setup() {
 
   slider = createSlider(10, 100, 47);
   input = createInput('type your name');
-  input.changed(updateText);
+  //input.changed(updateText); //after enter or tab
+  input.input(updateText); //live
+
 }
 
 function changeColor(){
