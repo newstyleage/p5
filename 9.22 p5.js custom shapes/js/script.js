@@ -20,7 +20,5 @@ function draw() {
     curveVertex(250,60);
     curveVertex(300,200);
 
-
-
   endShape(CLOSE);
 }
