@@ -1,61 +1,26 @@
-let vertices = [];
+
 
 function setup() {
   createCanvas(640, 360);
-
-  for (let i = 0; i < 20; i++) {
-    var v = createVector(random(width), random(height));
-    vertices.push(v);
-  }
+  angleMode(DEGREES);
 }
 
-function mousePressed() {
-  let v = createVector(mouseX, mouseY);
-  vertices.push(v);
-}
 
 function draw() {
   background(51);
-  let reached = [];
-  let unreached = [];
-  for (let i = 0;i < vertices.length; i++) {
-    unreached.push(vertices[i]);
-  }
+  var x = 200;
+  var y = 200;
+  stroke(255, 255, 100);
+  strokeWeight(8);
+  point(x, y);
 
-  reached.push(unreached[0]);
-  unreached.splice(0,1);
+  var angle = map(mouseX, 0, width,-90, 90);
 
-  while (unreached.length > 0) {
-    let record = 100000;
-    let rIndex;
-    let uIndex;
-    for (let i=0; i < reached.length; i++) {
-      
-      for (let j = 0; j < unreached.length; j++){
-        let v1 = reached[i];
-        let v2 = unreached[j];
-        let d = dist(v1.x, v1.y, v2.x, v2.y);
+  var r = 100;
+  var dx = r * cos(angle);
+  var dy = r * sin(angle);
 
-        if (d < record) {
-          record = d;
-          rIndex = i;
-          uIndex = j;
-        }
-      }
-    }
-    stroke(255, 255, 200);
-    strokeWeight(2);
-    line(reached[rIndex].x, reached[rIndex].y, unreached[uIndex].x, unreached[uIndex].y);
+  point(x+dx, y+dy);
 
-    reached.push(unreached[uIndex]);
-    unreached.splice(uIndex,1);
-
-
-  }
-
-  for (let i = 0; i < vertices.length; i++) {
-    fill(255, 255, 100);
-    stroke(255, 255, 200);
-    ellipse(vertices[i].x, vertices[i].y, 16, 16);
-  }
+  line(x, y, x+dx, y+dy);
 }
