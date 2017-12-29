@@ -1,14 +1,18 @@
-var r = 10
+var blob;
+var blobs = [];
+var zoom = 1;
+
+var spacing = 10
 var k = 30
-var w = r / Math.sqrt(2)
+var w = spacing / Math.sqrt(2)
 var grid = []
 var active = []
 var cols
 var rows
+var food = []
 
 function setup() {
-  createCanvas(400, 400)
-  background(0)
+  createCanvas(600, 600);
   strokeWeight(4)
   cols = floor(width / w)
   rows = floor(height / w)
@@ -27,20 +31,14 @@ function setup() {
   grid[i + j * cols] = pos
   active.push(pos)
 
-}
 
-function draw() {
-
-  background(0)
-  noLoop()
-  //setp 2
   while (active.length > 0) {
     let randIndex = floor(random(active.lenght))
     let pos = active[randIndex]
     let found = false
     for (let n = 0; n < k; n++) {
       let sample = p5.Vector.random2D()
-      let m = random(r, 2 * r)
+      let m = random(spacing, 2 * r)
       sample.setMag(m)
       sample.add(pos)
 
@@ -54,7 +52,7 @@ function draw() {
             var neighbor = grid[index]
             if (neighbor) {
               var d = p5.Vector.dist(sample, neighbor)
-              if (d < r) {
+              if (d < spacing) {
                 ok = false
               }
             }
@@ -76,14 +74,41 @@ function draw() {
 
   for (g of grid) {
     if (g) {
-      stroke(random(255), random(255), random(255))
-      strokeWeight(4)
-      point(g.x, g.y)
+      food.push(createVector(g.x, g.y))
     }
   }
-  // for (a of active) {
-  //   stroke(255, 255, 100)
-  //   strokeWeight(4)
-  //   point(a.x, a.y)
-  // }
+
+  blob = new Blob(0, 0, 64);
+
+  for (let i = 0; i < 50; i++) {
+    blobs[i] = new Blob(food[i].x, food[i].y, 16);
+  }
+}
+
+function draw() {
+  background(0);
+  translate(width / 2, height / 2);
+  var newzoom = 64 / blob.r;
+  zoom = lerp(zoom, newzoom, 0.1);
+  scale(zoom);
+  translate(-blob.pos.x, -blob.pos.y);
+  for (let i = -height; i <= height; i = i + 50) {
+    stroke(100)
+    strokeWeight(1)
+    line(-width, i, width, i)
+  }
+  for (let i = -width; i <= width; i = i + 50) {
+    stroke(100)
+    strokeWeight(1)
+    line(i, -height, i, height)
+  }
+
+  for (var i = blobs.length - 1; i >= 0; i--) {
+    blobs[i].show();
+    if (blob.eats(blobs[i])) {
+      blobs.splice(i, 1);
+    }
+  }
+  blob.show();
+  blob.update();
 }
