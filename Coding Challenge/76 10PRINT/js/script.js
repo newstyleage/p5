@@ -5,7 +5,8 @@ let x = y = 0,
 function setup() {
   createCanvas(600, 400);
   background(25, 53, 74);
-  stroke(255, 255, 100);
+  //stroke(255, 255, 100);
+  stroke(35, 153, 201);
   strokeWeight(s / 3);
 
   const array = new Array(floor((width / s) * (height / s) + (height / s * 2)));
