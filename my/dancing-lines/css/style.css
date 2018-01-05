@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #19354A;
+    color: #d1b40e;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+canvas {
+    margin-left: 50px;
+    margin-top: 50px;
+}
